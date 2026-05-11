@@ -20,11 +20,53 @@
         </div>
     </aside>
 
-    <!-- Center: Chapter Editor -->
+    <!-- Center: Main Area -->
     <section class="editor" id="editor-panel">
-        <div class="editor-placeholder">
-            <p>👈 请从左侧选择要编辑的章节</p>
-            <p>或点击"全部生成"开始AI自动撰写</p>
+        <!-- Concept Panel (shown by default when no chapter is selected) -->
+        <div id="concept-panel" class="concept-panel">
+            <div class="concept-header">
+                <h2>🔑 关键核心技术构思</h2>
+                <span class="hint-text">请先详细描述您的核心技术构思，AI将基于此构思展开专利交底书撰写</span>
+            </div>
+            <div class="concept-body">
+                <div class="form-group">
+                    <label for="concept-title">发明名称（可选，AI将自动生成）</label>
+                    <input type="text" id="concept-title" class="form-input" placeholder="例如：一种基于X型交叉折叠结构的轻量化自行车车架">
+                </div>
+                <div class="form-group">
+                    <label for="concept-text">
+                        核心技术构思 <span class="required">*</span>
+                        <span class="hint-text">请尽可能详细描述，包括：要解决的技术问题、关键构件的结构和连接关系、与现有技术的区别、预期的技术效果</span>
+                    </label>
+                    <textarea id="concept-text" class="form-input concept-textarea"
+                        placeholder="请在此详细描述您的关键核心技术构思...
+
+例如：&#10;1. 要解决的技术问题：传统折叠自行车车架折叠机构复杂，折叠后体积较大，且重量偏重...&#10;2. 关键技术方案：采用X型交叉折叠结构，车架主体由上管、下管、中轴铰链和快拆锁紧机构组成...&#10;3. 创新点：交叉折叠结构使得折叠后体积缩小60%；自锁铰链装置无需额外工具即可实现快速折叠和展开...&#10;4. 预期效果：折叠后体积缩小60%，重量减轻15%，折叠/展开时间不超过10秒..."></textarea>
+                </div>
+                <div class="concept-actions">
+                    <button class="btn btn-primary" onclick="saveConcept()">💾 保存构思</button>
+                    <button class="btn btn-outline" onclick="analyzeConcept()">🔍 分析技术特征</button>
+                </div>
+                <div id="concept-analysis-result" class="concept-analysis" style="display:none"></div>
+            </div>
+        </div>
+
+        <!-- Chapter Editor (shown when a chapter is selected) -->
+        <div id="chapter-editor" style="display:none">
+            <div class="editor-toolbar">
+                <h3 id="editor-chapter-title"></h3>
+                <span id="editor-chapter-status" class="badge"></span>
+                <button class="btn btn-outline btn-sm" id="btn-generate-chapter">🤖 AI生成</button>
+                <button class="btn btn-secondary btn-sm" id="btn-preview">👁 预览</button>
+                <button class="btn btn-primary btn-sm" id="btn-save">💾 保存</button>
+                <button class="btn btn-secondary btn-sm" id="btn-version" style="display:none">🕐 历史版本</button>
+                <button class="btn btn-secondary btn-sm" onclick="backToConcept()">← 返回构思</button>
+            </div>
+            <div class="editor-body">
+                <textarea class="editor-textarea" id="editor-textarea"
+                    placeholder="请在此编辑章节内容，或点击「AI生成」基于核心技术构思自动撰写..."></textarea>
+                <div class="editor-preview" id="editor-preview" style="display:none"></div>
+            </div>
         </div>
     </section>
 
