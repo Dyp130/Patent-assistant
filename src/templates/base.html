@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}专利撰写助手{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" class="nav-logo">📄 专利撰写助手</a>
+            <span class="nav-subtitle">结构设计领域</span>
+        </div>
+        <div class="nav-actions">
+            <a href="/" class="nav-link">项目列表</a>
+            <button class="btn btn-outline btn-sm" onclick="location.href='/'">新建项目</button>
+        </div>
+    </nav>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/common.js"></script>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <div id="toast-container"></div>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

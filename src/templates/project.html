@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}项目编辑 - 专利撰写助手{% endblock %}
+
+{% block content %}
+<div class="workspace" data-project-id="{{ project_id }}">
+    <!-- Left Sidebar: Chapter List -->
+    <aside class="sidebar" id="chapter-sidebar">
+        <div class="sidebar-header">
+            <h3>章节列表</h3>
+            <div class="sidebar-actions">
+                <button class="btn btn-primary btn-sm" onclick="generateAll()" title="一键生成全部章节">⚡ 全部生成</button>
+            </div>
+        </div>
+        <nav id="chapter-nav">
+            <div class="loading">加载中...</div>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="btn btn-secondary btn-sm btn-block" onclick="exportDocx()">📥 导出 DOCX</button>
+            <button class="btn btn-secondary btn-sm btn-block" onclick="exportMarkdown()">📥 导出 Markdown</button>
+        </div>
+    </aside>
+
+    <!-- Center: Chapter Editor -->
+    <section class="editor" id="editor-panel">
+        <div class="editor-placeholder">
+            <p>👈 请从左侧选择要编辑的章节</p>
+            <p>或点击"全部生成"开始AI自动撰写</p>
+        </div>
+    </section>
+
+    <!-- Right Panel: Figure Checklist -->
+    <aside class="figure-panel" id="figure-panel">
+        <div class="panel-header">
+            <h3>附图清单</h3>
+            <span id="figure-count" class="badge">0</span>
+        </div>
+        <div id="figure-list">
+            <p class="hint">生成章节后，附图标记将自动显示在此处</p>
+        </div>
+    </aside>
+</div>
+
+<!-- Streaming overlay -->
+<div id="streaming-overlay" style="display:none">
+    <div class="streaming-content">
+        <div class="streaming-header">
+            <h3 id="streaming-title">正在生成...</h3>
+            <div class="spinner"></div>
+        </div>
+        <div id="streaming-output" class="streaming-output"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/project.js"></script>
+{% endblock %}

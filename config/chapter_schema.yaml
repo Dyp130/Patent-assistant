@@ -1,0 +1,70 @@
+chapters:
+  - order: 1
+    name: "发明名称"
+    key: "title"
+    mandatory: true
+    description: "简洁、准确地反映发明的技术主题，一般不超过25个字，不使用营销性词汇"
+    prompt_key: "chapter_1_title"
+
+  - order: 2
+    name: "技术领域"
+    key: "technical_field"
+    mandatory: true
+    description: "明确发明所属或直接应用的具体技术领域，范围不宜过宽"
+    prompt_key: "chapter_2_technical_field"
+
+  - order: 3
+    name: "背景技术"
+    key: "background_art"
+    mandatory: true
+    description: "引证2-3项现有技术，指出其存在的缺陷或不足之处"
+    prompt_key: "chapter_3_background_art"
+
+  - order: 4
+    name: "发明目的"
+    key: "purpose"
+    mandatory: true
+    description: "针对背景技术中的每项缺陷，明确本发明要解决的技术问题"
+    prompt_key: "chapter_4_purpose"
+
+  - order: 5
+    name: "技术方案"
+    key: "technical_solution"
+    mandatory: true
+    description: "核心章节：详细描述技术方案的构成、连接关系、材料、参数等"
+    prompt_key: "chapter_5_technical_solution"
+
+  - order: 6
+    name: "有益效果"
+    key: "beneficial_effects"
+    mandatory: true
+    description: "与现有技术对比，定量或定性地说明本发明的有益效果"
+    prompt_key: "chapter_6_beneficial_effects"
+
+  - order: 7
+    name: "附图说明"
+    key: "drawing_description"
+    mandatory: true
+    description: "列出每幅图的编号和简要说明，提示需在文档中插入附图的位置"
+    prompt_key: "chapter_7_drawing_description"
+
+  - order: 8
+    name: "具体实施方式"
+    key: "detailed_embodiments"
+    mandatory: true
+    description: "至少一个完整、可重现的具体实施例，可包含多个变体"
+    prompt_key: "chapter_8_detailed_embodiments"
+
+  - order: 9
+    name: "替代方案"
+    key: "alternative_embodiments"
+    mandatory: false
+    description: "可选的替代实施例，描述构件的变体或替代实现方式"
+    prompt_key: "chapter_9_alternative_embodiments"
+
+  - order: 10
+    name: "关键点与保护点"
+    key: "key_points"
+    mandatory: true
+    description: "按重要性从高到低列出本发明的创新点和需要保护的要点"
+    prompt_key: "chapter_10_key_points"

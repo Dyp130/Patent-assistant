@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}项目列表 - 专利撰写助手{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>我的专利项目</h1>
+    <button class="btn btn-primary" onclick="showCreateModal()">+ 新建专利草稿</button>
+</div>
+
+<div id="project-list" class="project-grid">
+    <div class="loading">加载中...</div>
+</div>
+
+<!-- Create Project Modal -->
+<div id="create-modal" class="modal" style="display:none">
+    <div class="modal-overlay" onclick="closeCreateModal()"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>新建专利草稿</h2>
+            <button class="modal-close" onclick="closeCreateModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="patent-type">专利类型</label>
+                <select id="patent-type" class="form-input">
+                    <option value="发明专利">发明专利</option>
+                    <option value="实用新型">实用新型</option>
+                    <option value="外观设计">外观设计</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="concept">核心技术构思</label>
+                <textarea id="concept" class="form-input" rows="8"
+                    placeholder="请详细描述您的核心技术构思，包括：&#10;1. 要解决的技术问题&#10;2. 关键结构件的构成和连接关系&#10;3. 与现有技术的区别&#10;4. 预期的技术效果"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeCreateModal()">取消</button>
+            <button class="btn btn-primary" onclick="createProject()">开始撰写</button>
+        </div>
+    </div>
+</div>
+
+<script>
+async function loadProjects() {
+    const container = document.getElementById('project-list');
+    try {
+        const data = await api.get('/api/projects');
+        if (!data || data.length === 0) {
+            container.innerHTML = '<div class="empty-state"><div class="empty-icon">📝</div><p>暂无专利项目，点击上方按钮开始创建</p></div>';
+            return;
+        }
+        container.innerHTML = data.map(p => `
+            <div class="project-card" onclick="location.href='/project/${p.id}'">
+                <div class="card-header">
+                    <h3>${escapeHtml(p.title)}</h3>
+                    <span class="badge badge-${p.status}">${statusLabel(p.status)}</span>
+                </div>
+                <div class="card-meta">
+                    <span>${p.patent_type}</span>
+                    <span>章节: ${p.completed_chapters}/${p.chapter_count}</span>
+                </div>
+                <div class="card-progress">
+                    <div class="progress-bar" style="width:${p.chapter_count > 0 ? (p.completed_chapters / p.chapter_count * 100) : 0}%"></div>
+                </div>
+                <div class="card-time">更新于 ${formatDate(p.updated_at)}</div>
+            </div>
+        `).join('');
+    } catch (e) {
+        container.innerHTML = `<div class="error">加载失败: ${e.message}</div>`;
+    }
+}
+
+function showCreateModal() {
+    document.getElementById('create-modal').style.display = 'flex';
+    document.getElementById('concept').focus();
+}
+
+function closeCreateModal() {
+    document.getElementById('create-modal').style.display = 'none';
+}
+
+async function createProject() {
+    const patent_type = document.getElementById('patent-type').value;
+    const technical_concept = document.getElementById('concept').value.trim();
+    if (technical_concept.length < 10) {
+        showToast('请至少输入10个字符描述您的技术构思', 'error');
+        return;
+    }
+    try {
+        const data = await api.post('/api/projects', { patent_type, technical_concept });
+        closeCreateModal();
+        window.location.href = `/project/${data.id}`;
+    } catch (e) {
+        showToast('创建失败: ' + e.message, 'error');
+    }
+}
+
+// Init
+loadProjects();
+</script>
+{% endblock %}
