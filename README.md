@@ -6,6 +6,8 @@
   <img src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
   <img src="https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi&logoColor=white" alt="FastAPI">
   <img src="https://img.shields.io/badge/AI-Anthropic%20SDK-8b5cf6" alt="Anthropic SDK">
+  <a href="https://pypi.org/project/patent-drafting-assistant/"><img src="https://img.shields.io/pypi/v/patent-drafting-assistant?color=3775A9&logo=pypi&logoColor=white" alt="PyPI"></a>
+  <a href="https://pypi.org/project/patent-drafting-assistant/"><img src="https://img.shields.io/pypi/dm/patent-drafting-assistant?color=3775A9" alt="Downloads"></a>
 </p>
 
 <p align="center">
