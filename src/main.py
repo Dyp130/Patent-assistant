@@ -10,7 +10,7 @@ from jinja2 import Environment, FileSystemLoader
 from src.db import init_db
 from src.routes import projects, chapters, generation, figures, export
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 
 @asynccontextmanager
