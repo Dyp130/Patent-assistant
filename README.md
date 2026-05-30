@@ -1,5 +1,5 @@
-<h1 align="center">Patent Drafting Assistant</h1>
-<p align="center"><strong>专利撰写助手 — AI-powered patent disclosure drafting</strong></p>
+<h1 align="center">专利撰写助手</h1>
+<p align="center"><strong>Patent Drafting Assistant — AI 驱动的专利交底书撰写工具</strong></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
@@ -11,57 +11,63 @@
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#chapter-structure">Structure</a> •
-  <a href="#customizing">Customize</a> •
-  <a href="#contributing">Contributing</a>
+  <a href="#功能特性">功能特性</a> •
+  <a href="#快速开始">快速开始</a> •
+  <a href="#使用指南">使用指南</a> •
+  <a href="#章节结构">章节结构</a> •
+  <a href="#自定义提示词">自定义提示词</a> •
+  <a href="#参与贡献">参与贡献</a>
 </p>
 
 ---
 
-Input your core technical concept and let AI generate a complete 10-chapter Chinese patent disclosure. Supports streaming generation, per-chapter editing, auto figure prompts, version history, and DOCX/Markdown export — all through a clean local web UI.
+输入核心技术构思，AI 自动生成符合中国专利法规范的 10 章节完整交底书。支持流式生成、逐章编辑、自动附图提示、版本回退、DOCX/Markdown 导出，全部通过清爽的本地 Web 界面操作。
 
-## Features
+## 功能特性
 
-- **AI-driven drafting** — Generate a complete patent disclosure from a single technical concept
-- **10-chapter standard structure** — Follows Chinese patent disclosure conventions
-- **Concept-first workflow** — Analyze your concept first, then generate chapters based on structured extraction
-- **Technical feature analysis** — AI extracts key elements, innovation points, and expected effects
-- **Streaming generation** — Watch each chapter generate in real time via SSE
-- **Per-chapter editing** — Edit any chapter manually, switch between Markdown edit and preview modes
-- **Auto figure prompts** — AI inserts `[Figure N: description]` markers; right panel shows the figure checklist
-- **Version history** — Every save creates a snapshot; rollback anytime
-- **DOCX export** — Professional Word documents with correct Chinese fonts (Song Ti / Hei Ti)
-- **Markdown export** — Plain text for other editing tools
-- **Zero-config LLM** — Auto-reads API keys from Claude Code settings or environment variables
+- **AI 自动撰写** — 输入核心技术构思，AI 逐章生成完整专利交底书
+- **10 章节标准结构** — 符合中国专利交底书规范
+- **构思优先工作流** — 先输入技术构思，AI 分析后再基于结果逐章生成
+- **技术特征分析** — AI 自动提取关键要素、创新点、预期效果
+- **流式生成** — SSE 实时输出，随时查看生成进度
+- **逐章编辑** — 支持手动编辑、Markdown 实时预览切换
+- **附图提示** — AI 自动标记 `[图N: 描述]`，右侧面板汇总附图清单
+- **版本回退** — 每次保存自动快照，一键恢复任意历史版本
+- **DOCX 导出** — 正确配置宋体/黑体中文字体，兼容 Word 和 WPS
+- **Markdown 导出** — 便于导入其他编辑工具
+- **零配置启动** — 自动读取 Claude Code 配置或环境变量中的 API Key
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 环境要求
 
 - Python **3.10+**
-- An Anthropic-compatible LLM API (e.g. DeepSeek, OpenAI, Claude)
+- 可访问的 LLM API（兼容 Anthropic SDK，如 DeepSeek / OpenAI / Claude）
 
-### Install
+### 安装
 
 ```bash
+# 方式一：pip 安装
+pip install patent-drafting-assistant
+patent-assistant
+
+# 方式二：源码运行
 git clone https://github.com/Dyp130/Patent-assistant.git
 cd Patent-assistant
 pip install -r requirements.txt
+python run.py
 ```
 
-### Configure
+### 配置 API
 
-Copy the example env file and set your credentials:
+复制示例配置文件并填入凭据：
 
 ```bash
 cp .env.example .env
-# Edit .env with your API key, base URL, and model
+# 编辑 .env：填写 API 地址、密钥、模型名称
 ```
 
-Or export as environment variables:
+或者通过环境变量设置：
 
 ```bash
 export ANTHROPIC_BASE_URL="https://api.deepseek.com"
@@ -69,53 +75,52 @@ export ANTHROPIC_AUTH_TOKEN="your-api-key"
 export ANTHROPIC_MODEL="deepseek-chat"
 ```
 
-If you have [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed, the app automatically reads API config from `~/.claude/settings.json`.
+如果已安装 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)，应用会自动读取 `~/.claude/settings.json` 中的 API 配置。
 
-### Launch
+### 启动
 
 ```bash
 python run.py
+# 打开 http://127.0.0.1:8000
 ```
 
-Open **http://127.0.0.1:8000**
+## 使用指南
 
-## Usage
+### 操作流程
 
-### Workflow
+| 步骤 | 操作 |
+|------|------|
+| 1 | 点击「新建专利草稿」，选择专利类型，输入核心技术构思 |
+| 2 | 点击「保存构思」，可选「分析技术特征」让 AI 提取结构化信息 |
+| 3 | 点击「全部生成」一键生成所有章节，或选中单章点击「AI 生成」 |
+| 4 | 逐章审核、编辑、预览 |
+| 5 | 导出为 **DOCX** 或 **Markdown** |
 
-| Step | Action |
-|------|--------|
-| 1 | Click **New Patent Draft**, choose patent type, and enter your core technical concept |
-| 2 | Click **Save Concept**, then optionally **Analyze Technical Features** |
-| 3 | Click **Generate All** (or select individual chapters via **AI Generate**) |
-| 4 | Review, edit, and preview each chapter |
-| 5 | Export as **DOCX** or **Markdown** |
+### 界面截图
 
-### Screenshots
-
-<!-- TODO: add screenshots -->
+<!-- TODO: 添加截图 -->
 <p align="center">
-  <em>Screenshots coming soon — run <code>python run.py</code> to see it in action.</em>
+  <em>截图即将补充 — 运行 <code>python run.py</code> 即可体验。</em>
 </p>
 
-## Chapter Structure
+## 章节结构
 
-| # | Chapter (EN) | Chapter (中文) | Description |
-|---|-------------|---------------|-------------|
-| 1 | Title | 发明名称 | Concise, ≤25 characters, no marketing terms |
-| 2 | Technical Field | 技术领域 | Specific technical domain |
-| 3 | Background Art | 背景技术 | 2-3 existing solutions and their shortcomings |
-| 4 | Purpose | 发明目的 | Technical problems to be solved |
-| 5 | **Technical Solution** | **技术方案** | Core chapter: elements, relationships, mechanisms |
-| 6 | Beneficial Effects | 有益效果 | Quantitative/qualitative advantages |
-| 7 | Drawing Description | 附图说明 | Numbered list of all required figures |
-| 8 | Detailed Embodiments | 具体实施方式 | At least one complete, reproducible embodiment |
-| 9 | Alternative Embodiments | 替代方案 | Optional variants and alternatives |
-| 10 | Key Points & Protection | 关键点与保护点 | Innovation points ranked by importance |
+| 序号 | 章节名称 | 说明 |
+|------|----------|------|
+| 1 | 发明名称 | 简洁准确，一般不超过 25 字，不使用营销性词汇 |
+| 2 | 技术领域 | 发明所属的具体技术细分领域 |
+| 3 | 背景技术 | 引证 2-3 项现有方案，指出其不足之处 |
+| 4 | 发明目的 | 明确要解决的技术问题 |
+| 5 | **技术方案** | 核心章节：要素构成、关系、机制、参数等 |
+| 6 | 有益效果 | 与现有技术对比，定量或定性说明优势 |
+| 7 | 附图说明 | 列出所有附图的编号和描述 |
+| 8 | 具体实施方式 | 至少一个完整可重现的实施例 |
+| 9 | 替代方案 | 可选的变体或替代实现方式 |
+| 10 | 关键点与保护点 | 按重要性排列的创新要点 |
 
-## Customizing
+## 自定义提示词
 
-Edit `config/prompts.yaml` to adjust AI generation behavior for each chapter — no code changes needed. Variables use `{placeholder}` syntax.
+编辑 `config/prompts.yaml` 即可调整每个章节的 AI 生成策略，无需修改代码。提示词使用 `{变量}` 占位符注入上下文。
 
 ```yaml
 chapter_5_technical_solution:
@@ -129,48 +134,48 @@ chapter_5_technical_solution:
     ...
 ```
 
-## Project Structure
+## 项目结构
 
 ```
 Patent-assistant/
 ├── config/
-│   ├── settings.py           # Configuration & env reading
-│   ├── prompts.yaml          # AI prompt templates
-│   └── chapter_schema.yaml   # Chapter definitions
+│   ├── settings.py           # 配置读取（API 密钥等）
+│   ├── prompts.yaml          # AI 提示词模板
+│   └── chapter_schema.yaml   # 章节定义
 ├── src/
-│   ├── main.py               # FastAPI application entry
-│   ├── db/                   # Database setup (SQLAlchemy + SQLite)
-│   ├── routes/               # Project, chapter, generation, export APIs
-│   ├── models/               # ORM models and Pydantic schemas
-│   ├── services/             # AI generation, analysis, export
-│   ├── templates/            # Jinja2 HTML templates
-│   └── static/               # CSS & vanilla JavaScript
-├── .env.example              # API configuration template
+│   ├── main.py               # FastAPI 应用入口
+│   ├── db/                   # 数据库（SQLAlchemy + SQLite）
+│   ├── routes/               # API 路由
+│   ├── models/               # ORM 模型和 Pydantic 校验
+│   ├── services/             # AI 生成、分析、导出服务
+│   ├── templates/            # Jinja2 前端页面
+│   └── static/               # CSS 和原生 JavaScript
+├── .env.example              # API 配置模板
 ├── requirements.txt
-├── run.py                    # Launch script
+├── run.py                    # 启动脚本
 └── README.md
 ```
 
-## Tech Stack
+## 技术栈
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | Python 3.10+ / FastAPI / SQLAlchemy |
-| Database | SQLite (zero-config, auto-created) |
-| Frontend | Jinja2 + vanilla JS + SSE streaming |
-| AI | Anthropic SDK (DeepSeek / OpenAI / Claude compatible) |
-| Export | python-docx (Chinese font configured), markdown |
-| Design | Zero build tools, single CSS file |
+| 层面 | 技术 |
+|------|------|
+| 后端 | Python 3.10+ / FastAPI / SQLAlchemy |
+| 数据库 | SQLite（零配置，自动创建） |
+| 前端 | Jinja2 + 原生 JavaScript + SSE 流式传输 |
+| AI | Anthropic SDK（兼容 DeepSeek / OpenAI / Claude） |
+| 导出 | python-docx（中文字体配置）、Markdown |
+| 设计 | 无前端构建工具，单文件 CSS |
 
-## Contributing
+## 参与贡献
 
-Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+欢迎参与贡献 — 详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-1. Fork the repo
-2. Create a branch (`git checkout -b feat/your-feature`)
-3. Commit your changes
-4. Push and open a Pull Request
+1. Fork 本项目
+2. 创建分支（`git checkout -b feat/新功能`）
+3. 提交更改
+4. 推送并创建 Pull Request
 
-## License
+## 许可证
 
-MIT — see [LICENSE](LICENSE).
+MIT — 详见 [LICENSE](LICENSE)。
