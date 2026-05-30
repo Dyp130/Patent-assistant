@@ -1,40 +1,65 @@
-# Patent Drafting Assistant (专利撰写助手)
+<h1 align="center">Patent Drafting Assistant</h1>
+<p align="center"><strong>专利撰写助手 — AI-powered patent disclosure drafting</strong></p>
 
-AI-powered Chinese patent disclosure drafting tool. Input your core technical concept and let AI generate a complete 10-chapter patent disclosure document with streaming generation, per-chapter editing, figure prompts, version history, and DOCX/Markdown export.
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/AI-Anthropic%20SDK-8b5cf6" alt="Anthropic SDK">
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#chapter-structure">Structure</a> •
+  <a href="#customizing">Customize</a> •
+  <a href="#contributing">Contributing</a>
+</p>
+
+---
+
+Input your core technical concept and let AI generate a complete 10-chapter Chinese patent disclosure. Supports streaming generation, per-chapter editing, auto figure prompts, version history, and DOCX/Markdown export — all through a clean local web UI.
 
 ## Features
 
-- **AI-driven patent drafting**: Generate a complete patent disclosure from your core technical concept
-- **10-chapter standard structure**: Title → Technical Field → Background Art → Purpose → Technical Solution → Beneficial Effects → Drawing Description → Detailed Embodiments → Alternative Embodiments → Key Points & Protection Scope
-- **Concept-first workflow**: Describe your technical concept first, then generate chapters based on structured analysis
-- **Technical feature analysis**: AI extracts key components, relationships, innovation points, and expected effects
-- **Per-chapter generation & editing**: Single-chapter streaming generation, real-time preview, manual editing, Markdown preview
-- **Figure prompts**: AI auto-inserts `[Figure N: description]` markers; right panel aggregates all figure requirements
-- **Version history**: Auto-saved version snapshots on each edit, with rollback support
-- **DOCX export**: Properly configured Chinese fonts (Song Ti / Hei Ti), compatible with Microsoft Word and WPS Office
-- **Markdown export**: Easy import into other editing tools
+- **AI-driven drafting** — Generate a complete patent disclosure from a single technical concept
+- **10-chapter standard structure** — Follows Chinese patent disclosure conventions
+- **Concept-first workflow** — Analyze your concept first, then generate chapters based on structured extraction
+- **Technical feature analysis** — AI extracts key elements, innovation points, and expected effects
+- **Streaming generation** — Watch each chapter generate in real time via SSE
+- **Per-chapter editing** — Edit any chapter manually, switch between Markdown edit and preview modes
+- **Auto figure prompts** — AI inserts `[Figure N: description]` markers; right panel shows the figure checklist
+- **Version history** — Every save creates a snapshot; rollback anytime
+- **DOCX export** — Professional Word documents with correct Chinese fonts (Song Ti / Hei Ti)
+- **Markdown export** — Plain text for other editing tools
+- **Zero-config LLM** — Auto-reads API keys from Claude Code settings or environment variables
 
 ## Quick Start
 
-### Requirements
+### Prerequisites
 
-- Python 3.10+
-- Access to an LLM API (Anthropic-compatible interface)
+- Python **3.10+**
+- An Anthropic-compatible LLM API (e.g. DeepSeek, OpenAI, Claude)
 
-### Installation
+### Install
 
 ```bash
 git clone https://github.com/Dyp130/Patent-assistant.git
 cd Patent-assistant
-
 pip install -r requirements.txt
 ```
 
-### Configure API
+### Configure
 
-The project reads LLM API configuration through two methods (higher priority first):
+Copy the example env file and set your credentials:
 
-**Option 1: Environment variables**
+```bash
+cp .env.example .env
+# Edit .env with your API key, base URL, and model
+```
+
+Or export as environment variables:
 
 ```bash
 export ANTHROPIC_BASE_URL="https://api.deepseek.com"
@@ -42,9 +67,7 @@ export ANTHROPIC_AUTH_TOKEN="your-api-key"
 export ANTHROPIC_MODEL="deepseek-chat"
 ```
 
-**Option 2: Claude Code settings**
-
-If you have Claude Code installed, the project auto-reads API config from `~/.claude/settings.json`.
+If you have [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed, the app automatically reads API config from `~/.claude/settings.json`.
 
 ### Launch
 
@@ -52,99 +75,100 @@ If you have Claude Code installed, the project auto-reads API config from `~/.cl
 python run.py
 ```
 
-Open **http://127.0.0.1:8000** in your browser.
+Open **http://127.0.0.1:8000**
 
-## Usage Guide
+## Usage
 
-### 1. Create a new project
+### Workflow
 
-Click "New Patent Draft" on the home page, select patent type (Invention / Utility Model / Design Patent), and enter your core technical concept.
+| Step | Action |
+|------|--------|
+| 1 | Click **New Patent Draft**, choose patent type, and enter your core technical concept |
+| 2 | Click **Save Concept**, then optionally **Analyze Technical Features** |
+| 3 | Click **Generate All** (or select individual chapters via **AI Generate**) |
+| 4 | Review, edit, and preview each chapter |
+| 5 | Export as **DOCX** or **Markdown** |
 
-### 2. Enter your technical concept
+### Screenshots
 
-Describe your invention in detail:
+<!-- TODO: add screenshots -->
+<p align="center">
+  <em>Screenshots coming soon — run <code>python run.py</code> to see it in action.</em>
+</p>
 
-- The technical problem to be solved
-- Key components/elements and how they work together
-- Differences from existing technology
-- Expected technical effects
+## Chapter Structure
 
-Click "Save Concept", and optionally "Analyze Technical Features" for AI-structured extraction.
+| # | Chapter (EN) | Chapter (中文) | Description |
+|---|-------------|---------------|-------------|
+| 1 | Title | 发明名称 | Concise, ≤25 characters, no marketing terms |
+| 2 | Technical Field | 技术领域 | Specific technical domain |
+| 3 | Background Art | 背景技术 | 2-3 existing solutions and their shortcomings |
+| 4 | Purpose | 发明目的 | Technical problems to be solved |
+| 5 | **Technical Solution** | **技术方案** | Core chapter: elements, relationships, mechanisms |
+| 6 | Beneficial Effects | 有益效果 | Quantitative/qualitative advantages |
+| 7 | Drawing Description | 附图说明 | Numbered list of all required figures |
+| 8 | Detailed Embodiments | 具体实施方式 | At least one complete, reproducible embodiment |
+| 9 | Alternative Embodiments | 替代方案 | Optional variants and alternatives |
+| 10 | Key Points & Protection | 关键点与保护点 | Innovation points ranked by importance |
 
-### 3. Generate the patent disclosure
+## Customizing
 
-- **Generate All**: Click "Generate All" in the sidebar — AI generates chapters sequentially
-- **Single Chapter**: Select a chapter and click "AI Generate"
+Edit `config/prompts.yaml` to adjust AI generation behavior for each chapter — no code changes needed. Variables use `{placeholder}` syntax.
 
-Generation uses SSE streaming for real-time preview.
-
-### 4. Edit & Review
-
-- Edit AI-generated content in the editor
-- Click "Preview" for Markdown-rendered view
-- Each save creates a history version; rollback anytime
-
-### 5. Manage figures
-
-The right-side Figure Checklist panel auto-aggregates all `[Figure N: description]` markers from generated content.
-
-### 6. Export
-
-- **DOCX**: Export as Word document with proper Chinese formatting
-- **Markdown**: Export as plain text markup file
-
-## Patent Chapter Structure
-
-| # | Chapter | Description |
-|---|---------|-------------|
-| 1 | Title | Concise and accurate, ≤25 characters |
-| 2 | Technical Field | Specific technical domain of the invention |
-| 3 | Background Art | 2-3 existing solutions and their shortcomings |
-| 4 | Purpose | Technical problems to be solved |
-| 5 | **Technical Solution** | Core chapter: components, relationships, parameters, mechanisms |
-| 6 | Beneficial Effects | Quantitative/qualitative advantages over prior art |
-| 7 | Drawing Description | Numbered list of all required figures with descriptions |
-| 8 | Detailed Embodiments | At least one complete, reproducible embodiment |
-| 9 | Alternative Embodiments | Optional variants and alternative implementations |
-| 10 | Key Points & Protection | Innovation points ranked by importance, claim-ready |
+```yaml
+chapter_5_technical_solution:
+  system: |
+    你是一位资深的中国专利代理人。
+    请根据以下核心技术构思，撰写"技术方案"章节。
+    ...
+  user: |
+    发明名称：{title}
+    核心技术构思：{technical_concept}
+    ...
+```
 
 ## Project Structure
 
 ```
 Patent-assistant/
 ├── config/
-│   ├── settings.py           # Configuration (API keys, etc.)
-│   ├── prompts.yaml          # AI prompt templates (customizable)
+│   ├── settings.py           # Configuration & env reading
+│   ├── prompts.yaml          # AI prompt templates
 │   └── chapter_schema.yaml   # Chapter definitions
 ├── src/
 │   ├── main.py               # FastAPI application entry
-│   ├── routes/               # API routes
-│   ├── models/               # Data models (SQLAlchemy)
-│   ├── services/             # AI generation, export, analysis
-│   ├── templates/            # Jinja2 frontend pages
-│   └── static/               # CSS / JavaScript
-├── data/                     # SQLite database (auto-created)
-├── output/                   # Exported DOCX/MD files
+│   ├── db/                   # Database setup (SQLAlchemy + SQLite)
+│   ├── routes/               # Project, chapter, generation, export APIs
+│   ├── models/               # ORM models and Pydantic schemas
+│   ├── services/             # AI generation, analysis, export
+│   ├── templates/            # Jinja2 HTML templates
+│   └── static/               # CSS & vanilla JavaScript
+├── .env.example              # API configuration template
 ├── requirements.txt
 ├── run.py                    # Launch script
 └── README.md
 ```
 
-## Customizing Prompts
-
-AI generation quality depends on prompt quality. Edit `config/prompts.yaml` to adjust each chapter's generation strategy without modifying code. Prompts use `{variable}` placeholders for context injection.
-
 ## Tech Stack
 
-- **Backend**: Python 3.10+ / FastAPI / SQLAlchemy / SQLite
-- **Frontend**: Jinja2 templates + vanilla JavaScript + SSE streaming
-- **AI**: Anthropic SDK (compatible with OpenAI / DeepSeek / etc.)
-- **Export**: python-docx (with Chinese font configuration)
-
-## License
-
-MIT License — see [LICENSE](LICENSE) file for details.
+| Layer | Technology |
+|-------|-----------|
+| Backend | Python 3.10+ / FastAPI / SQLAlchemy |
+| Database | SQLite (zero-config, auto-created) |
+| Frontend | Jinja2 + vanilla JS + SSE streaming |
+| AI | Anthropic SDK (DeepSeek / OpenAI / Claude compatible) |
+| Export | python-docx (Chinese font configured), markdown |
+| Design | Zero build tools, single CSS file |
 
 ## Contributing
 
-Contributions are welcome. Please open an issue or pull request on GitHub.
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+1. Fork the repo
+2. Create a branch (`git checkout -b feat/your-feature`)
+3. Commit your changes
+4. Push and open a Pull Request
+
+## License
+
+MIT — see [LICENSE](LICENSE).
