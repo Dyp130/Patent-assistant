@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "patent-drafting-assistant"
+version = "0.1.0"
+description = "AI-powered Chinese patent disclosure drafting tool"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    {name = "Dyp130", email = "dyp130@example.com"},
+]
+keywords = ["patent", "chinese-patent", "ai-assistant", "fastapi", "legal-tech"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Legal Industry",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Markup",
+    "Natural Language :: Chinese (Simplified)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.34.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "sqlalchemy>=2.0",
+    "anthropic>=0.60.0",
+    "python-docx>=1.1.0",
+    "markdown>=3.7",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.18",
+]
+
+[project.scripts]
+patent-assistant = "src.main:main"
+
+[project.urls]
+Homepage = "https://github.com/Dyp130/Patent-assistant"
+Repository = "https://github.com/Dyp130/Patent-assistant.git"
+Issues = "https://github.com/Dyp130/Patent-assistant/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["config", "config.*", "src", "src.*"]
+
+[tool.setuptools.package-data]
+config = ["*.yaml", "*.yml"]
+"src.templates" = ["*.html"]
+"src.static" = ["**/*"]

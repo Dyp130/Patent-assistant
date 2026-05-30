@@ -10,6 +10,8 @@ from jinja2 import Environment, FileSystemLoader
 from src.db import init_db
 from src.routes import projects, chapters, generation, figures, export
 
+__version__ = "0.1.0"
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,7 +23,7 @@ async def lifespan(app: FastAPI):
     # Shutdown
 
 
-app = FastAPI(title="专利撰写助手", version="0.1.0", lifespan=lifespan)
+app = FastAPI(title="专利撰写助手", version=__version__, lifespan=lifespan)
 
 # Static files
 static_path = Path(__file__).parent / "static"
@@ -57,4 +59,19 @@ def project_page(project_id: int, request: Request):
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "app": "专利撰写助手"}
+    return {"status": "ok", "app": "专利撰写助手", "version": __version__}
+
+
+def main():
+    """Entry point for `patent-assistant` CLI command."""
+    import uvicorn
+    from config.settings import get_settings
+    settings = get_settings()
+    print(f"启动 {settings.app_name} v{__version__}")
+    print(f"访问地址: http://{settings.host}:{settings.port}")
+    uvicorn.run(
+        "src.main:app",
+        host=settings.host,
+        port=settings.port,
+        reload=True,
+    )
