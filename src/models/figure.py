@@ -12,7 +12,7 @@ class FigurePlaceholder(Base):
     position_label: Mapped[str] = mapped_column(String(20))
     description: Mapped[str] = mapped_column(Text, default="")
     position_marker: Mapped[int] = mapped_column(Integer, default=0)
-    content_type: Mapped[str] = mapped_column(String(30), default="结构示意图")
+    content_type: Mapped[str] = mapped_column(String(30), default="示意图")
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     chapter = relationship("Chapter", back_populates="figures")

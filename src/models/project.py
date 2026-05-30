@@ -10,7 +10,7 @@ class Project(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     title: Mapped[str] = mapped_column(String(100), default="")
     technical_concept: Mapped[str] = mapped_column(Text, default="")
-    domain: Mapped[str] = mapped_column(String(50), default="结构设计")
+    domain: Mapped[str] = mapped_column(String(50), default="")
     patent_type: Mapped[str] = mapped_column(String(20), default="发明专利")
     status: Mapped[str] = mapped_column(String(20), default="drafting")
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

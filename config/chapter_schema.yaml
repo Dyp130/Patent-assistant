@@ -31,7 +31,7 @@ chapters:
     name: "技术方案"
     key: "technical_solution"
     mandatory: true
-    description: "核心章节：详细描述技术方案的构成、连接关系、材料、参数等"
+    description: "核心章节：详细描述技术方案的构成要素、相互关系、工作机制和参数等"
     prompt_key: "chapter_5_technical_solution"
 
   - order: 6
@@ -59,7 +59,7 @@ chapters:
     name: "替代方案"
     key: "alternative_embodiments"
     mandatory: false
-    description: "可选的替代实施例，描述构件的变体或替代实现方式"
+    description: "可选的替代实施例，描述技术特征的变体或替代实现方式"
     prompt_key: "chapter_9_alternative_embodiments"
 
   - order: 10

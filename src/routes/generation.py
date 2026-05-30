@@ -159,7 +159,7 @@ def _save_chapter_result(db: Session, chapter: Chapter, content: str):
             position_label=f["position_label"],
             description=f["description"],
             position_marker=f["position_marker"],
-            content_type="结构示意图",
+            content_type="示意图",
         )
         db.add(fp)
 
